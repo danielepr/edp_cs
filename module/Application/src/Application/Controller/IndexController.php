@@ -40,15 +40,7 @@ class IndexController extends AbstractActionController
             	$token=$config['token']; 
                 $payment->exchangeArray($form->getData());
                 
- 				$new_cc_number = $this->encriptPassword(
-						$this->getStaticSalt(),
-						$payment['cc_number'],
-						$this->generateDynamicSalt()
-				);      
-				//encrypt CC number
-				$payment['cc_number'] = $new_cc_number;
-				         
-                
+      
                 //If the API does not do CC validation....this may be done here...
 				$valid = new Zend\Validator\CreditCard();
 				$valid->setType(array(
@@ -75,7 +67,14 @@ class IndexController extends AbstractActionController
 				    // input is invalid
 				}
 				
-								             
+ 				$new_cc_number = $this->encriptPassword(
+						$this->getStaticSalt(),
+						$payment['cc_number'],
+						$this->generateDynamicSalt()
+				);      
+				//encrypt CC number
+				$payment['cc_number'] = $new_cc_number;
+												             
 				$client = new \Zend\Http\Client();
 				$client->setAdapter(new \Zend\Http\Client\Adapter\Curl());	
 				$client->setUri('http://api.europaymentgroup.test.com/api/token=$token');
