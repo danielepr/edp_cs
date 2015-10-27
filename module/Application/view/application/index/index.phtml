@@ -1,0 +1,21 @@
+ <?php
+ $title = 'Submit your payment';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <?php
+ $form->setAttribute('action', $this->url('index', array('action' => 'response')));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);
+ echo $this->formHidden($form->get('id'));
+ echo $this->formRow($form->get('payer_firstname'));
+ echo $this->formRow($form->get('payer_lastname'));
+ echo $this->formRow($form->get('currency'));
+ echo $this->formRow($form->get('amount'));
+ echo $this->formRow($form->get('cc_number'));
+ echo $this->formRow($form->get('cc_CVV')); 
+ echo $this->formRow($form->get('cc_expiration_month')); 
+ echo $this->formRow($form->get('cc_expiration_year'));  
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();
